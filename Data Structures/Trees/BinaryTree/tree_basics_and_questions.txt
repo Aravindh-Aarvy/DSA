@@ -1,0 +1,111 @@
+===============================
+Tree Data Structure - Overview
+===============================
+
+A **tree** is a hierarchical data structure consisting of **nodes**, with a single node (called the **root**) at the top and potentially many levels of additional nodes beneath it.
+
+Each node in a tree may point to zero or more child nodes. A tree with `n` nodes has exactly `n-1` edges.
+
+---------------------------------
+Key Terms and Concepts:
+---------------------------------
+
+1. **Root**: The top node in the tree.
+2. **Child**: A node that descends from another node.
+3. **Parent**: A node with one or more children.
+4. **Leaf**: A node with no children.
+5. **Edge**: The connection between parent and child nodes.
+6. **Height**: The number of edges on the longest path from root to a leaf.
+7. **Depth**: The number of edges from the root to a node.
+8. **Binary Tree**: A tree in which each node has at most 2 children (left and right).
+9. **Binary Search Tree (BST)**: A binary tree where the left child has a smaller value and the right child has a larger value.
+
+---------------------------------
+Tree Traversal Techniques:
+---------------------------------
+
+1. **Pre-order** (Root → Left → Right)
+2. **In-order** (Left → Root → Right)
+3. **Post-order** (Left → Right → Root)
+4. **Level-order** (Breadth-First Search)
+
+---------------------------------
+Common Interview Questions with Answers:
+---------------------------------
+
+1. **Q: What is the difference between a tree and a binary tree?**
+   A: A tree is a general data structure where each node can have any number of children. A binary tree restricts each node to have at most two children (left and right).
+
+2. **Q: What is in-order traversal used for in a Binary Search Tree?**
+   A: In a BST, in-order traversal returns nodes in **sorted order** (ascending).
+
+3. **Q: How do you find the height of a binary tree?**
+   A:
+    
+   int height(Node root) {
+       if (root == null) return 0;
+       return 1 + Math.max(height(root.left), height(root.right));
+   }
+4. **Q: How can you check if a binary tree is balanced?
+   A: A tree is balanced if the height difference of left and right subtrees for every node is not more than 1.
+
+ 
+      boolean isBalanced(Node root) {
+        if (root == null) return true;
+        int lh = height(root.left);
+        int rh = height(root.right);
+        return Math.abs(lh - rh) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+      }
+5. **Q: What is a complete binary tree?
+    A: A complete binary tree has all levels completely filled except possibly the last level, which is filled from left to right.
+
+6. **Q: What is the difference between BFS and DFS in trees?
+    A:
+
+    BFS (Breadth-First Search): Traverses level by level using a queue.
+
+    DFS (Depth-First Search): Traverses deep into the tree using recursion or a stack (Pre-order, In-order, Post-order).
+
+7. **Q: What is the Lowest Common Ancestor (LCA)?
+    A: The lowest node in a tree that has both given nodes as descendants.
+
+ 
+      Node lca(Node root, Node p, Node q) {
+          if (root == null || root == p || root == q) return root;
+          Node left = lca(root.left, p, q);
+          Node right = lca(root.right, p, q);
+          if (left != null && right != null) return root;
+          return left != null ? left : right;
+      }
+
+8. **Q: How do you perform level-order traversal in a binary tree?
+  A: Use a queue to visit nodes level by level.
+
+ 
+      void levelOrder(Node root) {
+          if (root == null) return;
+          Queue<Node> queue = new LinkedList<>();
+          queue.offer(root);
+          while (!queue.isEmpty()) {
+              Node current = queue.poll();
+              System.out.print(current.data + " ");
+              if (current.left != null) queue.offer(current.left);
+              if (current.right != null) queue.offer(current.right);
+          }
+      }
+9. **Q: How do you check if two binary trees are identical?
+    A:
+
+ 
+    boolean isSameTree(Node p, Node q) {
+        if (p == null && q == null) return true;
+        if (p == null || q == null) return false;
+        return (p.data == q.data) &&
+               isSameTree(p.left, q.left) &&
+               isSameTree(p.right, q.right);
+    }
+
+10. **Q: What is the time complexity of tree traversals?
+      A: All basic traversals (in-order, pre-order, post-order, level-order) have O(n) time complexity, where n is the number of nodes.
+
+=====================
